@@ -3,6 +3,7 @@ import SideBar from './SideBar'
 import MainBody from './MainBody'
 import axios from 'axios';
 import GetSpecificSubject from './GetSpecificSubject';
+import { Outlet } from 'react-router';
 
 
 
@@ -15,7 +16,7 @@ const Body = () => {
            <button className='bg-teal-600 w-16 m-5  h-8' onClick={()=>setToggleSidebar(!toggleSidebar)} >collapse</button>
         </div>
         <div>
-            <MainBody />
+            <Outlet />
         </div>
         
     </div>
