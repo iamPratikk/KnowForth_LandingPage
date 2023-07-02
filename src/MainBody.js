@@ -7,7 +7,6 @@ const MainBody = () => {
   const [subject, setSubject] = useState("");
   const [subjectList, setSubjectList] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [course, setCourse] = useState("");
   const [courseID, setCourseID] = useState(0);
   const [subjectID, setSubjectID] = useState(0);
   const [courseIndex, setCourseIndex] = useState(0);
@@ -23,9 +22,9 @@ const MainBody = () => {
   // const subject_post_URL="https://orca-app-czm5x.ondigitalocean.app/api/subjects"
   // const token = Buffer.from(`${username}:${password}`, 'utf8').toString('base64')
 
-  useEffect(() => {
-    getSubjects();
-  }, []);
+  // useEffect(() => {
+    // getSubjects();
+  // }, [subjectList]);
   useEffect(() => {
     getCourses();
   }, []);
@@ -62,7 +61,7 @@ const MainBody = () => {
       })
       .then((res) => {
         setCourses(res.data);
-        console.log(courses);
+        // console.log(courses);
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +105,7 @@ const MainBody = () => {
           },
         }
       );
-      console.log(response, "update Working");
+      console.log(response, "updated");
       return response;
     } catch (err) {
       console.log(err, "update failed");
@@ -179,21 +178,14 @@ const MainBody = () => {
 
       const response = await fetchSubject();
       console.log(response);
-      if (response && response.CourseID === courseID) {
+      if (response) {
         await updateSubject({
           SubjectID: response.SubjectID,
           SubjectName: subject,
-          CourseID: response.CourseID,
+          CourseID: courseID,
         });
         successNotification("Subject Updated");
-      } else if (isSubjectPresent) {
-        await updateSubject({
-          SubjectID: response.SubjectID,
-          SubjectName: subject,
-          CourseID: response.CourseID,
-        });
-        successNotification("Subject Updated");
-      } else {
+      }else {
         await createSubject({
           SubjectID: subjectID,
           SubjectName: subject,
